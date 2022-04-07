@@ -16,6 +16,7 @@ export type FilmCharacter = {
   age?: string;
   eye_color?: string;
   hair_color?: string;
+  url: string;
 };
 
 export const getFilms = async (title?: string | null) => {
@@ -34,11 +35,12 @@ export const getFilmById = async (filmId?: string) => {
   );
   const film: Film = await response.json();
 
-  // this skips missing people
+  // this should skip missing people
   const characters = await Promise.all(
     film.people
       .filter((url) => url !== "https://ghibliapi.herokuapp.com/people/")
       .map((url) => fetch(url).then((res) => res.json()))
   );
+  // console.log("characters", characters);
   return { ...film, characters };
 };
