@@ -22,7 +22,6 @@ export type FilmCharacter = {
 export const getFilms = async (title?: string | null) => {
   const response = await fetch("https://ghibliapi.herokuapp.com/films");
   const films: Array<Film> = await response.json();
-  //how to error handle?
 
   return films.filter((film) =>
     title ? film.title.toLowerCase().includes(title.toLowerCase()) : true
@@ -35,12 +34,22 @@ export const getFilmById = async (filmId?: string) => {
   );
   const film: Film = await response.json();
 
-  // this should skip missing people
   const characters = await Promise.all(
     film.people
       .filter((url) => url !== "https://ghibliapi.herokuapp.com/people/")
       .map((url) => fetch(url).then((res) => res.json()))
   );
-  // console.log("characters", characters);
   return { ...film, characters };
+};
+
+export const getCharacterById = async (characterId?: string) => {
+  const response = await fetch(
+    `https://ghibliapi.herokuapp.com/people/${characterId}`
+  );
+
+  if (!response.ok) {
+    throw response;
+  }
+  const character: FilmCharacter = await response.json();
+  return character;
 };

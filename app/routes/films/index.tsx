@@ -22,7 +22,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 //CLIENT SIDE
 const FilmsIndex = () => {
   const films = useLoaderData<Array<Film>>();
-  console.log(films);
   return (
     <div className="p-16 font-sans">
       <h1 className="text-5xl font-bold text-center mb-5">
