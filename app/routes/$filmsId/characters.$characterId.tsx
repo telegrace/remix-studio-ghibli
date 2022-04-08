@@ -1,7 +1,8 @@
 import { json, LoaderFunction } from "@remix-run/node";
-import { useCatch } from "@remix-run/react";
+import { useCatch, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { FilmCharacter, getCharacterById } from "~/api/films";
+import CharacterCard from "~/components/CharacterCard";
 
 interface CharacterPageProps {
   character: FilmCharacter;
@@ -15,16 +16,12 @@ export const loader: LoaderFunction = async ({ params }) => {
   // throw json("Different message", { status: 404 });
   return character;
 };
-const CharacterPage: React.FC<CharacterPageProps> = ({ character }) => {
+const CharacterPage: React.FC<CharacterPageProps> = () => {
+  const character = useLoaderData<FilmCharacter>();
+
   return (
     <>
-      <h3 className="text-3xl font-bold">{character.name}</h3>
-      <ul>
-        <li>Age: {character.age}</li>
-        <li>Gender: {character.gender}</li>
-        <li>Eye Color:{character.eye_color}</li>
-        <li>Hair Color:{character.hair_color}</li>
-      </ul>
+      <CharacterCard character={character} />
     </>
   );
 };

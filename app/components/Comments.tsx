@@ -1,11 +1,11 @@
 import { LoaderFunction } from "@remix-run/node";
 import { Form, useActionData, useTransition } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { CommentEntry, getComments } from "~/api/comments";
+import { Comment, getComments } from "~/api/comments";
 
 interface CommentProps {
   filmId: string;
-  comments: Array<CommentEntry>;
+  comments: Array<Comment>;
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -13,6 +13,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   invariant(params.filmId, "expected params.filmId");
 
   const comments = await getComments(params.filmId);
+  console.log(comments);
   console.log("fetching comments... -->");
   return comments;
 };

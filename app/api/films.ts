@@ -1,4 +1,4 @@
-import { CommentEntry } from "./comments";
+import { Comment, getComments } from "./comments";
 
 export type Film = {
   id: string;
@@ -9,7 +9,7 @@ export type Film = {
   movie_banner: string;
   people: string[];
   characters?: Array<FilmCharacter>;
-  comments?: Array<CommentEntry>;
+  comments?: Array<Comment>;
 };
 
 export type FilmCharacter = {
@@ -31,18 +31,20 @@ export const getFilms = async (title?: string | null) => {
   );
 };
 
-export const getFilmById = async (filmId?: string) => {
+export const getFilmById = async (filmId: string) => {
   const response = await fetch(
     `https://ghibliapi.herokuapp.com/films/${filmId}`
   );
   const film: Film = await response.json();
+  const comments = await getComments(filmId);
 
   const characters = await Promise.all(
     film.people
       .filter((url) => url !== "https://ghibliapi.herokuapp.com/people/")
       .map((url) => fetch(url).then((res) => res.json()))
   );
-  return { ...film, characters };
+
+  return { ...film, characters, comments };
 };
 
 export const getCharacterById = async (characterId?: string) => {
@@ -53,6 +55,8 @@ export const getCharacterById = async (characterId?: string) => {
   if (!response.ok) {
     throw response;
   }
+
   const character: FilmCharacter = await response.json();
+
   return character;
 };
