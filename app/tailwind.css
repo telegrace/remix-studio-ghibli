@@ -476,8 +476,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   position: relative;
 }
 
-.m-5 {
-  margin: 1.25rem;
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
 }
 
 .my-3 {
@@ -493,11 +494,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
-}
-
-.mx-5 {
-  margin-left: 1.25rem;
-  margin-right: 1.25rem;
 }
 
 .mb-2 {
@@ -572,6 +568,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   gap: 1rem;
 }
 
+.space-y-3 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
+
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
@@ -582,12 +584,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-space-x-reverse: 0;
   margin-right: calc(1.25rem * var(--tw-space-x-reverse));
   margin-left: calc(1.25rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.space-y-3 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
 }
 
 .overflow-hidden {
@@ -626,6 +622,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(225 29 72 / var(--tw-border-opacity));
 }
 
+.bg-slate-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(203 213 225 / var(--tw-bg-opacity));
+}
+
 .bg-blue-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
@@ -645,9 +646,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(254 205 211 / var(--tw-bg-opacity));
 }
 
-.bg-slate-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(203 213 225 / var(--tw-bg-opacity));
+.p-3 {
+  padding: 0.75rem;
 }
 
 .p-4 {
@@ -664,10 +664,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .p-16 {
   padding: 4rem;
-}
-
-.p-3 {
-  padding: 0.75rem;
 }
 
 .py-2 {
@@ -727,6 +723,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-weight: 700;
 }
 
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+
 .text-gray-700 {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
@@ -740,16 +746,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-black {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
-.text-blue-500 {
-  --tw-text-opacity: 1;
-  color: rgb(59 130 246 / var(--tw-text-opacity));
 }
 
 .shadow-lg {

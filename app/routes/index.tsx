@@ -1,7 +1,5 @@
-export default function Index() {
-  return (
-    <>
-      <div>Welcome to Remix Studio Ghilbi</div>
-    </>
-  );
-}
+import { LoaderFunction, redirect } from "@remix-run/node";
+
+export const loader: LoaderFunction = async () => {
+  return redirect("/films");
+};
