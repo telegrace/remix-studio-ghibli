@@ -1,12 +1,16 @@
-# Welcome to Remix!
+# Welcome to remix-studio-ghibli!
 
 - [Remix Docs](https://remix.run/docs)
+- [Tutorial used](https://www.youtube.com/watch?v=HOlYQu_r4Io&t=4474s)
+
+
 
 ## Development
 
 From your terminal:
 
 ```sh
+npm i
 npm run dev
 ```
 
@@ -28,27 +32,42 @@ npm start
 
 Now you'll need to pick a host to deploy it to.
 
-### DIY
+## Notes
 
-If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
+### Folders let you use Layout Routes 
 
-Make sure to deploy the output of `remix build`
+When a nested route has the same name as its directory for example parent folder, parent.tsx is the layout and needs the Outlet component (the nested routing)
 
-- `build/`
-- `public/build/`
+### Dot Delimiters
 
-### Using a Template
+parent.other.tsx, export Other, this won't have the wrapper of parent since it is a flat route file
 
-When you ran `npx create-remix@latest` there were a few choices for hosting. You can run that again to create a new project, then copy over your `app/` folder to the new project that's pre-configured for your target server.
+- Nested files, nested urls + nested laytouts
 
-```sh
-cd ..
-# create a new project, and pick a pre-configured host
-npx create-remix@latest
-cd my-new-remix-app
-# remove the new project's app (not the old one!)
-rm -rf app
-# copy your app over
-cp -R ../my-old-remix-app/app app
-```
-# remix-studio-ghibli
+- Flatfiles give nested URLS with no layouts
+
+### Dynamic Paths
+
+use $ for a dynamic path, useParams to get the params from the URL
+
+
+
+### Entry Files
+
+entry.client.tsx hydrates our app
+
+entry.server.tsx server rendering 
+
+### EXTRACTING FROM A FORM
+
+- use ActionFunction
+- information ist aken from the body of the request
+
+- build a comment object using the get method, `body.get('name')`
+
+- redirects are common in actions
+
+### UseTransistion
+
+Used when mutating forms, good for disabling buttons when submitting
+
