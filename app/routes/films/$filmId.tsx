@@ -1,10 +1,16 @@
-import { LoaderFunction, MetaFunction } from "@remix-run/node";
+import {
+  ActionFunction,
+  LoaderFunction,
+  MetaFunction,
+  redirect,
+} from "@remix-run/node";
 import { Film, getFilmById } from "~/api/films";
 import invariant from "tiny-invariant";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import FilmBanner from "~/components/FilmBanner";
 import CharacterList from "~/components/CharacterList";
 import Comments from "~/components/Comments";
+import { addComment } from "~/api/comments";
 
 export const meta: MetaFunction = ({ data }) => {
   return {
@@ -21,6 +27,36 @@ export const loader: LoaderFunction = async ({ params }) => {
   console.log("fetching film... -->", film.title);
 
   return film;
+};
+
+export const action: ActionFunction = async ({ request, params }) => {
+  invariant(params.filmId, "expected params.filmId");
+  const body = await request.formData();
+
+  const comment = {
+    name: body.get("name") as string,
+    message: body.get("message") as string,
+    filmId: params.filmId,
+  };
+
+  const errors = { name: "", message: "" };
+
+  if (!comment.name) {
+    errors.name = "Please provide your name";
+  }
+
+  if (!comment.message) {
+    errors.message = "Please provide a comment";
+  }
+
+  if (errors.name || errors.message) {
+    const values = Object.fromEntries(body);
+    return { errors, values };
+  }
+
+  await addComment(comment);
+
+  return redirect(`/films/${params.filmId}`); //anyway of refreshing the component?
 };
 
 const Film = () => {

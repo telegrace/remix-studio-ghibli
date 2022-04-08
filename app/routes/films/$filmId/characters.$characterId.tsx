@@ -65,4 +65,3 @@ export const ErrorBoundary = ({ error }: any) => {
     </div>
   );
 };
-// http://localhost:3000/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49/characters/986faac6-67e3-4fb8-a9ee-bad077c2e7fe

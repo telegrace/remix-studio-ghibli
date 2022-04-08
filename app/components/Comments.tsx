@@ -1,22 +1,10 @@
-import { LoaderFunction } from "@remix-run/node";
 import { Form, useActionData, useTransition } from "@remix-run/react";
-import invariant from "tiny-invariant";
-import { Comment, getComments } from "~/api/comments";
+import { Comment } from "~/api/comments";
 
 interface CommentProps {
   filmId: string;
   comments: Array<Comment>;
 }
-
-export const loader: LoaderFunction = async ({ params }) => {
-  //you can add if, or use invariant
-  invariant(params.filmId, "expected params.filmId");
-
-  const comments = await getComments(params.filmId);
-  console.log(comments);
-  console.log("fetching comments... -->");
-  return comments;
-};
 
 const Comments: React.FC<CommentProps> = ({ filmId, comments }) => {
   const transition = useTransition();
