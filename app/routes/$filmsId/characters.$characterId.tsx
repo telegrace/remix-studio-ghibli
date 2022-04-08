@@ -1,4 +1,4 @@
-import { LoaderFunction } from "@remix-run/node";
+import { json, LoaderFunction } from "@remix-run/node";
 import { useCatch } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { FilmCharacter, getCharacterById } from "~/api/films";
@@ -12,7 +12,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   invariant(params.characterId, "expected params.characterId");
   const character = await getCharacterById(params.characterId);
   console.log("fetching character... -->");
-
+  // throw json("Different message", { status: 404 });
   return character;
 };
 const CharacterPage: React.FC<CharacterPageProps> = ({ character }) => {
@@ -32,7 +32,7 @@ const CharacterPage: React.FC<CharacterPageProps> = ({ character }) => {
 export default CharacterPage;
 
 export const CatchBoundary = () => {
-  // when we know the error
+  // when we know the error and caught via a hook instead of a prop
   const caught = useCatch();
 
   if (caught.status === 404) {
